@@ -191,8 +191,30 @@ function greatestProduct(matrix) {
   return verticalTally > horizontalTally ? verticalTally : horizontalTally;
 };
 
-
-function greatestProductOfDiagonals(matrix) {}
+/*
+I don't know if this next one is understandable enough, so gonna explain my though process a bit.
+I looked at, with each direction, which cells would not be able to be chosen when going 4 spaces in each diagonal,
+and keept the "for" from reaching them to not create "Undefined" errors, then looked at which patron the positions gave
+when picking the cells in diagonal direction, and added them to the previous exercice code.
+Now, gonna go pick the melted brain in the floor before I step on it. 
+*/
+function greatestProductOfDiagonals(matrix) {
+  let grade45AngleTally = 0
+  for (let i = 0; i < matrix.length - 4; i++) {
+    for (let j = 3; j < matrix[i].length -1; j++) {
+      let multRes = matrix[i][j] * matrix[i+1][j-1] * matrix[i+2][j-2] * matrix[i+3][j-3];
+      if (multRes > grade45AngleTally) grade45AngleTally = multRes;
+    };
+  };
+  let grade135AngleTally = 0
+  for (let i = 0; i < matrix.length - 4; i++) {
+    for (let j = 0; j < matrix[i].length - 4; j++) {
+      let multRes = matrix[i][j] * matrix[i+1][j+1] * matrix[i+2][j+2] * matrix[i+3][j+3];
+      if (multRes > grade135AngleTally) grade135AngleTally = multRes;
+    };
+  };
+  return grade45AngleTally > grade135AngleTally ? grade45AngleTally : grade135AngleTally;
+};
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
